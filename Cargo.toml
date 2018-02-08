@@ -3,4 +3,13 @@ name = "slog_derive"
 version = "0.1.0"
 authors = ["Michael Bryan <michaelfbryan@gmail.com>"]
 
+[lib]
+proc_macro = true
+
 [dependencies]
+syn = { version = "0.12.12", features = ["visit"] }
+quote = "0.4.2"
+
+[dev-dependencies]
+slog = "2.1.1"
+slog-term = "2.3.0"
