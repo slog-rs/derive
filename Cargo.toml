@@ -7,7 +7,7 @@ authors = ["Michael Bryan <michaelfbryan@gmail.com>"]
 proc_macro = true
 
 [dependencies]
-syn = { version = "0.12.12", features = ["visit"] }
+syn = { version = "0.12.12", features = ["visit", "extra-traits"] }
 quote = "0.4.2"
 
 [dev-dependencies]

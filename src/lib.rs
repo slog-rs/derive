@@ -76,7 +76,7 @@
 //! pub struct Config {
 //!   width: f64,
 //!   height: f64,
-//!   #[skip]
+//!   #[slog(skip)]
 //!   output_file: PathBuf,
 //! }
 //! # fn main() {}
@@ -97,7 +97,7 @@ mod utils;
 use proc_macro::TokenStream;
 use syn::DeriveInput;
 
-#[proc_macro_derive(KV, attributes(skip))]
+#[proc_macro_derive(KV, attributes(slog))]
 pub fn derive_kv(input: TokenStream) -> TokenStream {
     let ast: DeriveInput = syn::parse(input).unwrap();
 
