@@ -21,7 +21,7 @@ pub fn impl_kv(ast: DeriveInput) -> Tokens {
 
     quote!{
         impl ::slog::KV for #name {
-            fn serialize(&self, _record: &slog::Record, ser: &mut ::slog::Serializer) -> ::slog::Result {
+            fn serialize(&self, _record: &::slog::Record, ser: &mut ::slog::Serializer) -> ::slog::Result {
                 #(
                     #field_writes?;
                 )*
