@@ -27,7 +27,7 @@ let cfg = Config { ... };
 debug!(logger, "Loaded Config";
     "width" => cfg.width,
     "height" => cfg.height,
-    "output-file" => cfg.output_file);
+    "url" => cfg.url);
 # }
 ```
 
@@ -50,7 +50,7 @@ pub struct Config {
   width: f64,
   height: f64,
   #[slog(skip)]
-  output_file: PathBuf,
+  url: String,
 }
 ```
 
