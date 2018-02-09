@@ -10,12 +10,6 @@ pub fn contains_named_attr(attrs: &[Attribute], name: &str) -> bool {
         .any(|meta| meta.name() == name)
 }
 
-pub fn value_for_attr(attrs: &[Attribute], key: &str) -> Option<Meta> {
-    slog_attributes(attrs)
-        .into_iter()
-        .find(|meta| meta.name().to_string() == key)
-}
-
 /// Get the contents of all `#[slog(...)]` attributes.
 pub fn slog_attributes(attrs: &[Attribute]) -> Vec<Meta> {
     attrs

@@ -82,9 +82,74 @@
 //! # fn main() {}
 //! ```
 //!
+//! # The `SerdeValue` Derive
+//!
+//! Implementing the [`SerdeValue`] is usually trivial and tedious so it also
+//! has a custom derive.
+//!
+//! ```rust
+//! extern crate slog;
+//! #[macro_use]
+//! extern crate slog_derive;
+//! extern crate serde;
+//! #[macro_use]
+//! extern crate serde_derive;
+//! extern crate erased_serde;
+//!
+//! use std::path::PathBuf;
+//!
+//! #[derive(Clone, SerdeValue, Serialize, Deserialize)]
+//! pub struct Config {
+//!   width: f64,
+//!   height: f64,
+//!   output_file: PathBuf,
+//! }
+//! # fn main() {}
+//! ```
+//!
+//! This will require enabling `slog`'s `nested-values` feature flag, as well
+//! as implementing (or deriving) `serde::Serialize` for your type. You will
+//! also need to pull in the [`erased_serde`] crate because it's part of the
+//! `SerdeValue` signature.
+//!
+//! For convenience this will also generate a `Value` impl for your type (to
+//! implement `SerdeValue` you must also implement `Value`). This impl simply
+//! calls `Serializer::emit_serde()`, but if you want to write your own `Value`
+//! implementation you can add the `#[slog(no_value_impl)]` attribute.
+//!
+//! ```rust
+//! extern crate slog;
+//! #[macro_use]
+//! extern crate slog_derive;
+//! extern crate serde;
+//! #[macro_use]
+//! extern crate serde_derive;
+//! extern crate erased_serde;
+//!
+//! use std::path::PathBuf;
+//! use slog::{Key, Record, Serializer, Value};
+//!
+//! #[derive(Clone, SerdeValue, Serialize)]
+//! #[slog(no_value_impl)]
+//! pub struct Config {
+//!   width: f64,
+//!   height: f64,
+//!   output_file: PathBuf,
+//! }
+//!
+//! impl Value for Config {
+//!     fn serialize(&self, _record: &Record, key: Key, ser: &mut Serializer) -> slog::Result {
+//!         unimplemented!()
+//!     }
+//! }
+//! # fn main() {}
+//! ```
+//!
 //! [`slog`]: https://crates.io/crates/slog
 //! [`KV`]: https://docs.rs/slog/2.1.1/slog/trait.KV.html
 //! [`Value::serialize()`]: https://docs.rs/slog/2.1.1/slog/trait.Value.html#tymethod.serialize
+//! [`SerdeValue`]: https://docs.rs/slog/2.1.1/slog/trait.SerdeValue.html
+//! [`erased_serde`]: https://docs.rs/erased_serde
 
 extern crate proc_macro;
 #[macro_use]
@@ -92,6 +157,7 @@ extern crate quote;
 extern crate syn;
 
 mod derive_kv;
+mod derive_serde_value;
 mod utils;
 
 use proc_macro::TokenStream;
@@ -102,5 +168,13 @@ pub fn derive_kv(input: TokenStream) -> TokenStream {
     let ast: DeriveInput = syn::parse(input).unwrap();
 
     let gen = derive_kv::impl_kv(ast);
+    gen.to_string().parse().unwrap()
+}
+
+#[proc_macro_derive(SerdeValue, attributes(slog))]
+pub fn derive_serde_value(input: TokenStream) -> TokenStream {
+    let ast: DeriveInput = syn::parse(input).unwrap();
+
+    let gen = derive_serde_value::impl_serde_value(ast);
     gen.to_string().parse().unwrap()
 }
