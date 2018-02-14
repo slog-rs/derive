@@ -1,8 +1,11 @@
 # Slog Derives
 
 [![Build Status](https://travis-ci.org/slog-rs/derive.svg?branch=master)](https://travis-ci.org/slog-rs/derive)
+[![Crates.io Link](https://img.shields.io/crates/v/slog_derive.svg)](https://crates.io/crates/slog_derive)
+[![Online Documentation](https://docs.rs/slog_derive/badge.svg)](https://docs.rs/slog_derive)
 
 Custom derives for use with [slog] logging.
+
 
 ## The `KV` Derive
 
