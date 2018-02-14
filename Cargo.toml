@@ -2,6 +2,17 @@
 name = "slog_derive"
 version = "0.1.0"
 authors = ["Michael Bryan <michaelfbryan@gmail.com>"]
+description = "Custom derives for use with slog."
+readme = "README.md"
+license = "MIT/Apache-2.0"
+keywords = ["structured", "log", "slog", "derive", "logging"]
+documentation = "https://docs.rs/slog_derive"
+repository = "https://github.com/slog-rs/derive"
+categories = ["development-tools::debugging"]
+
+[badges]
+travis-ci = { repository = "slog-rs/derive", branch = "master" }
+maintenance = { status = "actively-developed" }
 
 [lib]
 proc_macro = true
@@ -11,7 +22,7 @@ syn = { version = "0.12.12", features = ["visit", "extra-traits"] }
 quote = "0.4.2"
 
 [dev-dependencies]
-slog = { version = "2.1.1", features = ["nested-values"] }
+slog = { version = "2.1.0", features = ["nested-values"] }
 slog-term = "2.3.0"
 serde = "1.0.27"
 serde_derive = "1.0.27"
