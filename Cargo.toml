@@ -27,3 +27,7 @@ slog-term = "2.3.0"
 serde = "1.0.27"
 serde_derive = "1.0.27"
 erased-serde = "0.3.3"
+
+[package.metadata.release]
+sign-commit = true
+tag-prefix = "v"
