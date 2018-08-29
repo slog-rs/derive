@@ -3,7 +3,7 @@ use syn::visit;
 use syn::{DeriveInput, Ident};
 use utils::CollectFields;
 
-pub fn impl_kv(ast: DeriveInput) -> TokenStream2 {
+pub fn impl_kv(ast: &DeriveInput) -> TokenStream2 {
     let name = &ast.ident;
 
     let mut cf = CollectFields::default();

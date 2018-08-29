@@ -168,7 +168,7 @@ use syn::DeriveInput;
 pub fn derive_kv(input: TokenStream) -> TokenStream {
     let ast: DeriveInput = syn::parse(input).unwrap();
 
-    let gen = derive_kv::impl_kv(ast);
+    let gen = derive_kv::impl_kv(&ast);
     gen.to_string().parse().unwrap()
 }
 

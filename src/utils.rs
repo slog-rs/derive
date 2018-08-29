@@ -18,7 +18,7 @@ pub fn slog_attributes(attrs: &[Attribute]) -> Vec<Meta> {
         .filter_map(|meta| match meta {
             Meta::List(list) => Some(list),
             _ => None,
-        }).filter(|meta_list| meta_list.ident.to_string() == SLOG_ATTRIBUTE)
+        }).filter(|meta_list| meta_list.ident == SLOG_ATTRIBUTE)
         .flat_map(|ml| ml.nested)
         .filter_map(|nested| match nested {
             NestedMeta::Meta(m) => Some(m),
