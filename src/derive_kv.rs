@@ -1,6 +1,6 @@
-use syn::{DeriveInput, Ident};
-use syn::visit;
 use proc_macro2::TokenStream as TokenStream2;
+use syn::visit;
+use syn::{DeriveInput, Ident};
 use utils::CollectFields;
 
 pub fn impl_kv(ast: DeriveInput) -> TokenStream2 {
