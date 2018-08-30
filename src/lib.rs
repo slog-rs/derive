@@ -152,6 +152,7 @@
 //! [`erased_serde`]: https://docs.rs/erased_serde
 
 extern crate proc_macro;
+extern crate proc_macro2;
 #[macro_use]
 extern crate quote;
 extern crate syn;
@@ -167,7 +168,7 @@ use syn::DeriveInput;
 pub fn derive_kv(input: TokenStream) -> TokenStream {
     let ast: DeriveInput = syn::parse(input).unwrap();
 
-    let gen = derive_kv::impl_kv(ast);
+    let gen = derive_kv::impl_kv(&ast);
     gen.to_string().parse().unwrap()
 }
 

@@ -1,18 +1,18 @@
-use syn::{DeriveInput, Ident};
+use proc_macro2::TokenStream as TokenStream2;
 use syn::visit;
-use quote::Tokens;
+use syn::{DeriveInput, Ident};
 use utils::CollectFields;
 
-pub fn impl_kv(ast: DeriveInput) -> Tokens {
-    let name = ast.ident;
+pub fn impl_kv(ast: &DeriveInput) -> TokenStream2 {
+    let name = &ast.ident;
 
     let mut cf = CollectFields::default();
     visit::visit_derive_input(&mut cf, &ast);
     let fields = cf.fields;
 
     let field_writes = fields
-        .into_iter()
-        .map(|field| (field, field_key(&field)))
+        .iter()
+        .map(|field| (field, field_key(field)))
         .map(|(field, key)| {
             quote!{
                 <_ as ::slog::Value>::serialize(&self.#field, _record, #key, ser)
