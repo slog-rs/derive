@@ -1,6 +1,6 @@
 [package]
 name = "slog_derive"
-version = "0.1.2-alpha.0"
+version = "0.2.0"
 authors = ["Michael Bryan <michaelfbryan@gmail.com>"]
 description = "Custom derives for use with slog."
 edition = "2018"
@@ -10,6 +10,10 @@ keywords = ["structured", "log", "slog", "derive", "logging"]
 documentation = "https://docs.rs/slog_derive"
 repository = "https://github.com/slog-rs/derive"
 categories = ["development-tools::debugging"]
+
+[package.metadata.release]
+sign-commit = true
+tag-prefix = "v"
 
 [badges]
 travis-ci = { repository = "slog-rs/derive", branch = "master" }
@@ -27,7 +31,3 @@ quote = "1.0"
 slog = { version = "2.5.0", features = ["nested-values"] }
 serde = { version = "1.0", features = ["derive"] }
 erased-serde = "0.3.3"
-
-[package.metadata.release]
-sign-commit = true
-tag-prefix = "v"
