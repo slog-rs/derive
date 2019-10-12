@@ -1,7 +1,8 @@
 use proc_macro2::TokenStream as TokenStream2;
 use syn::visit;
 use syn::{DeriveInput, Ident};
-use utils::CollectFields;
+
+use crate::utils::CollectFields;
 
 pub fn impl_kv(ast: &DeriveInput) -> TokenStream2 {
     let name = &ast.ident;
@@ -14,14 +15,14 @@ pub fn impl_kv(ast: &DeriveInput) -> TokenStream2 {
         .iter()
         .map(|field| (field, field_key(field)))
         .map(|(field, key)| {
-            quote!{
+            quote! {
                 <_ as ::slog::Value>::serialize(&self.#field, _record, #key, ser)
             }
         });
 
-    quote!{
+    quote! {
         impl ::slog::KV for #name {
-            fn serialize(&self, _record: &::slog::Record, ser: &mut ::slog::Serializer) -> ::slog::Result {
+            fn serialize(&self, _record: &::slog::Record, ser: &mut dyn ::slog::Serializer) -> ::slog::Result {
                 #(
                     #field_writes?;
                 )*

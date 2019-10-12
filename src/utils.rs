@@ -7,19 +7,19 @@ const SLOG_ATTRIBUTE: &str = "slog";
 pub fn contains_named_attr(attrs: &[Attribute], name: &str) -> bool {
     slog_attributes(attrs)
         .into_iter()
-        .any(|meta| meta.name() == name)
+        .any(|meta| meta.path().is_ident(name))
 }
 
 /// Get the contents of all `#[slog(...)]` attributes.
 pub fn slog_attributes(attrs: &[Attribute]) -> Vec<Meta> {
     attrs
-        .into_iter()
-        .filter_map(|attr| attr.interpret_meta())
+        .iter()
+        .filter_map(|attr| attr.parse_meta().ok())
         .filter_map(|meta| match meta {
             Meta::List(list) => Some(list),
             _ => None,
         })
-        .filter(|meta_list| meta_list.ident == SLOG_ATTRIBUTE)
+        .filter(|meta_list| meta_list.path.is_ident(SLOG_ATTRIBUTE))
         .flat_map(|ml| ml.nested)
         .filter_map(|nested| match nested {
             NestedMeta::Meta(m) => Some(m),
@@ -51,7 +51,7 @@ impl<'a> Visit<'a> for CollectFields {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use syn::{self, DeriveInput};
+    use syn::DeriveInput;
 
     #[test]
     fn find_the_skip_attribute() {

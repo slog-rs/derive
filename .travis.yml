@@ -1,5 +1,15 @@
 language: rust
 cache: cargo
+rust:
+  - stable
+  - beta
+  - nightly
+  # Minimum supported rustc version
+  - 1.31.0
+
+matrix:
+  allow_failures:
+    - rust: nightly
 
 script:
   - cargo build --verbose
