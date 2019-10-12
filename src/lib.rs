@@ -92,11 +92,10 @@
 //! #[macro_use]
 //! extern crate slog_derive;
 //! extern crate serde;
-//! #[macro_use]
-//! extern crate serde_derive;
 //! extern crate erased_serde;
 //!
 //! use std::path::PathBuf;
+//! use serde::{Serialize, Deserialize};
 //!
 //! #[derive(Clone, SerdeValue, Serialize, Deserialize)]
 //! pub struct Config {
@@ -122,12 +121,11 @@
 //! #[macro_use]
 //! extern crate slog_derive;
 //! extern crate serde;
-//! #[macro_use]
-//! extern crate serde_derive;
 //! extern crate erased_serde;
 //!
 //! use std::path::PathBuf;
 //! use slog::{Key, Record, Serializer, Value};
+//! use serde::Serialize;
 //!
 //! #[derive(Clone, SerdeValue, Serialize)]
 //! #[slog(no_value_impl)]

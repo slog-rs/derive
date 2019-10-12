@@ -3,6 +3,7 @@ name = "slog_derive"
 version = "0.1.2-alpha.0"
 authors = ["Michael Bryan <michaelfbryan@gmail.com>"]
 description = "Custom derives for use with slog."
+edition = "2018"
 readme = "README.md"
 license = "MIT/Apache-2.0"
 keywords = ["structured", "log", "slog", "derive", "logging"]
@@ -18,15 +19,13 @@ maintenance = { status = "actively-developed" }
 proc_macro = true
 
 [dependencies]
-proc-macro2 = "0.4.20"
-syn = { version = "0.15", features = ["visit", "extra-traits"] }
-quote = "0.6.8"
+proc-macro2 = "1.0"
+syn = { version = "1.0", features = ["visit", "extra-traits"] }
+quote = "1.0"
 
 [dev-dependencies]
-slog = { version = "2.1.0", features = ["nested-values"] }
-slog-term = "2.3.0"
-serde = "1.0.27"
-serde_derive = "1.0.27"
+slog = { version = "2.5.0", features = ["nested-values"] }
+serde = { version = "1.0", features = ["derive"] }
 erased-serde = "0.3.3"
 
 [package.metadata.release]
